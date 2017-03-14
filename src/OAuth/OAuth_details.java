@@ -1,3 +1,5 @@
+package OAuth;
+
 public class OAuth_details {
     
     private String response_type;
