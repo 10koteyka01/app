@@ -1,29 +1,23 @@
 package OAuth;
 
-import Entity.Vacancy;
+import Data_parser.Parse_Json;
 import com.github.scribejava.apis.HHApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Parameter;
-import com.github.scribejava.core.model.ParameterList;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.text.html.HTML.Tag.HTML;
+import org.json.JSONException;
+
 
 public class OAuth_util {
     public void getToken() throws IOException, InterruptedException, ExecutionException{
@@ -60,29 +54,16 @@ public class OAuth_util {
         service.signRequest(accessToken, request);
         final Response response = service.execute(request);
         System.out.println("Got it! Lets see what we found...");
-//        System.out.println();
-        System.out.println(response.getCode());
-//        System.out.println(response.getBody());
-        InputStream stream = response.getStream();
-        BufferedReader r = new BufferedReader(new InputStreamReader(stream));
-        String buf;
-        FileWriter fw = new FileWriter("C:\\Users\\константин\\Desktop\\1.html");
-        while((buf = r.readLine()) != null){
-            fw.append(buf).append("\n");
-        }
-        new HTML.parseHTML("C:\\Users\\константин\\Desktop\\1.html");
-        
-//        service.signRequest(accessToken, request);
-//        BufferedReader is = new BufferedReader(new InputStreamReader(response.getStream())); 
-        
-//        String buf;
 
-//        while((buf = is.readLine()) != null){
-//            System.out.println(buf);
-//            
-//        }
-        
-        
+        System.out.println(response.getCode());
+        System.out.println(response.getBody());
+        Parse_Json p = new Parse_Json(response.getBody());
+        try {
+            p.parse();
+            System.out.println(p.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(OAuth_util.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public static void main(String[] args){
         OAuth_util o = new OAuth_util();

@@ -1,12 +1,10 @@
 package Entity;
 
-import java.util.Calendar;
-
 public class Vacancy {
     private String name;
-    private Calendar date;
+    private String date;
     private String organization;
-    private int payment;
+    private String payment;
 
     public String getName() {
         return name;
@@ -16,11 +14,11 @@ public class Vacancy {
         this.name = name;
     }
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -32,13 +30,19 @@ public class Vacancy {
         this.organization = organization;
     }
 
-    public int getPayment() {
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(int payment) {
+    public void setPayment(String payment) {
         this.payment = payment;
     }
     
-    
+    @Override
+    public String toString(){
+        return "Название вакансии: " + name 
+                + " дата: " + date + " организация: " 
+                + organization + " зарплата: " + payment;
+    }
+
 }

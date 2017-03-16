@@ -32,12 +32,12 @@ public class parseHTML {
                 Vacancy vac = new Vacancy();
                 if(link.tagName().contains(OAuth_Constants.name_vac_node)){
                     vac.setName(link.text());
-                }
+            }
                 if(link.tagName().contains(OAuth_Constants.org_vac_node)){
                     vac.setOrganization(link.text());
-                }
+        } 
                 if(link.tagName().contains(OAuth_Constants.payment_vac_node)){
-                    vac.setPayment(Integer.parseInt(link.text()));
+                    vac.setPayment(link.text());
                 }
                 System.out.println(link.attr(OAuth_Constants.name_vac_node));
 //                System.out.println(link.text());
