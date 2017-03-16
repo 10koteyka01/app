@@ -1,5 +1,6 @@
 package OAuth;
 
+import Data_parser.Parse_Json;
 import com.github.scribejava.apis.HHApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -19,6 +20,8 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 
 public class OAuth_util {
     public void getToken() throws IOException, InterruptedException, ExecutionException{
@@ -57,18 +60,25 @@ public class OAuth_util {
         System.out.println("Got it! Lets see what we found...");
 //        System.out.println();
         System.out.println(response.getCode());
-//        System.out.println(response.getBody());
-        InputStream stream = response.getStream();
-        BufferedReader r = new BufferedReader(new InputStreamReader(stream));
-        String buf;
-        FileWriter fw = new FileWriter("D:\\1.txt");
-        while((buf = r.readLine()) != null){
-            fw.append(buf).append("\n");
+        System.out.println(response.getBody());
+        Parse_Json p = new Parse_Json(response.getBody());
+        try {
+            p.parse();
+            System.out.println(p.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(OAuth_util.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        InputStream stream = response.getStream();
+//        BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+//        String buf;
+//        FileWriter fw = new FileWriter("D:\\2.txt");
+//        while((buf = r.readLine()) != null){
+//            fw.append(buf).append("\n");
+//        }
 //        new HTML.parseHTML("D:\\1.html");
         
 //        service.signRequest(accessToken, request);
-//        BufferedReader is = new BufferedReader(new InputStreamReader(response.getStream())); 
+//        BufferedReader is = new BufferedReader(new InputStreamReader(response.getStream()));
         
 //        String buf;
 
@@ -76,6 +86,7 @@ public class OAuth_util {
 //            System.out.println(buf);
 //            
 //        }
+        
         
         
     }
