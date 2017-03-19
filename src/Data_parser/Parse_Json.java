@@ -12,6 +12,10 @@ public class Parse_Json {
     public Parse_Json(String str){
     this.str = str;
 }
+
+    Parse_Json() {
+     str = "";   
+    }
     
     public void parse() throws JSONException{
         JSONObject js = new JSONObject(str);
@@ -34,6 +38,27 @@ public class Parse_Json {
                 list.add(v);
             }
 
+    }
+    
+    public void parseJSONObject(JSONObject js) throws JSONException{
+        JSONArray arr = js.getJSONArray("items");
+        JSONObject js1;
+        if (arr != null)
+            for (int i = 0; i < arr.length(); i++){
+                Vacancy v = new Vacancy();
+                js1 = (JSONObject) arr.get(i);
+                v.setName((String) js1.get("name"));
+                v.setDate((String) js1.get("published_at"));
+                v.setOrganization((String) js1.getJSONObject("employer").get("name"));
+                try{
+                v.setPayment("from: " + js1.getJSONObject("salary").get("from") 
+                        + " to: " + js1.getJSONObject("salary").get("to"));
+                }
+                catch(JSONException e){
+                    v.setPayment("по результатам собеседования");
+                }
+                list.add(v);
+            }
     }
     
     public ArrayList getVacancyList(){
