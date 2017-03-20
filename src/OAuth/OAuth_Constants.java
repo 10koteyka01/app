@@ -9,7 +9,7 @@ public class OAuth_Constants {
     public static final String CLIENT_SECRET = "N15GDJTCAVF3EPJO6DGEFBBIV3PBN4SB0RM32KTR3KHV4IHD5TVM1RP6B9721OQI";//пароль, получаемый вместе с client_id
     public static final String AUTHORIZTAION_CODE = "";
     public static final String ACCESS_TOKEN = "ME8V0ESGEOKEFEFUAGCRNNBES69DUHLKCRQ8OD0GOP0GUU6P8KV60IHP4OT6N60B";//
-    public static final String PROTECTED_RESOURCE_URL = "https://api.hh.ru/vacancies?text=&specialization=1&area=4&per_page=100&page=3";//right query
+    public static final String PROTECTED_RESOURCE_URL = "https://api.hh.ru/vacancies?text=&specialization=1&area=4&per_page=500";//right query
     public static final String REDIRECT_URL = "https://novosibirsk.hh.ru";
     public static final String USER_ID = "16646808";
     public static final String name_vac_node = "vacancy-list-item__name";

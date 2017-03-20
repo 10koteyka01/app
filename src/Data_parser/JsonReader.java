@@ -30,8 +30,8 @@ public class JsonReader {
   }
   public static void main(String[] args) throws IOException, JSONException {
     JSONObject json = readJsonFromUrl("https://api.hh.ru/vacancies?text=&specialization=1&area=4&per_page=100&page=3");
-    Parse_Json ps = new Parse_Json();
-    ps.parseJSONObject(json);
+    Parse_Json ps = new Parse_Json(json);
+    ps.parse();
     System.out.println(ps.toString());
   }
 }

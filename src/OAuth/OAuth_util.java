@@ -38,31 +38,37 @@ public class OAuth_util {
         System.out.println(authorizationUrl);
         System.out.println("And paste the authorization code here");
         System.out.print(">>");
+        
         final String code = in.nextLine();
         System.out.println();
-
         // Trade the Request Token and Verfier for the Access Token
         System.out.println("Trading the Request Token for an Access Token...");
         final OAuth2AccessToken accessToken = service.getAccessToken(code);
+        
         System.out.println("Got the Access Token!");
         System.out.println("(if your curious it looks like this: " + accessToken
                 + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
         System.out.println();
 
         System.out.println("Now we're going to access a protected resource...");
-        final OAuthRequest request = new OAuthRequest(Verb.GET, OAuth_Constants.PROTECTED_RESOURCE_URL);
+        while (true){
+            int count_pages = 0;
+        final OAuthRequest request = new OAuthRequest(Verb.GET, String.format(OAuth_Constants.PROTECTED_RESOURCE_URL, count_pages));
         service.signRequest(accessToken, request);
         final Response response = service.execute(request);
         System.out.println("Got it! Lets see what we found...");
 
         System.out.println(response.getCode());
-        System.out.println(response.getBody());
+//        System.out.println(response.getBody());
         Parse_Json p = new Parse_Json(response.getBody());
         try {
             p.parse();
             System.out.println(p.toString());
         } catch (JSONException ex) {
             Logger.getLogger(OAuth_util.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (p.isListEmpty()) break;
+        count_pages++;
         }
     }
     public static void main(String[] args){
