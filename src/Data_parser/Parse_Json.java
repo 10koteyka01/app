@@ -12,7 +12,7 @@ public class Parse_Json {
     public Parse_Json(String str){
     this.str = str;
 }
-    
+   
     public void parse() throws JSONException{
         JSONObject js = new JSONObject(str);
         JSONArray arr = js.getJSONArray("items");
@@ -33,9 +33,8 @@ public class Parse_Json {
                 }
                 list.add(v);
             }
-
     }
-    
+      
     public ArrayList getVacancyList(){
         return list;
     }
@@ -43,6 +42,10 @@ public class Parse_Json {
     @Override
     public String toString(){
         return iter_list();
+    }
+    
+    public boolean isListEmpty(){
+        return list.isEmpty();
     }
     
     public String iter_list(){
