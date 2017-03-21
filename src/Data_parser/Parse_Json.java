@@ -1,6 +1,7 @@
 package Data_parser;
 
 import Entity.Vacancy;
+import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,7 @@ public class Parse_Json {
         }
     }
     
-    public void parse() throws JSONException{
+    public ArrayList<Vacancy> parse() throws JSONException, IOException{
         JSONArray arr = js.getJSONArray("items");
         JSONObject js1;
         if (arr != null)
@@ -47,6 +48,8 @@ public class Parse_Json {
                 }
                 list.add(v);
             }
+        else throw new IOException();
+        return list;
     }
     
     public ArrayList getVacancyList(){
