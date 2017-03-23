@@ -1,7 +1,6 @@
 package Data_parser;
 
 import Entity.Vacancy;
-import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +10,7 @@ public class Parse_Json {
     
     private final ArrayList<Vacancy> list = new ArrayList();
     private JSONObject js;
-    
+     
     public Parse_Json(String str){
         init_Json(str);
     }
@@ -19,6 +18,8 @@ public class Parse_Json {
     Parse_Json(JSONObject js) {
         this.js = js;
     }
+    
+    //initialize json object
     
     private void init_Json(String str){
         try{
@@ -29,7 +30,10 @@ public class Parse_Json {
         }
     }
     
-    public ArrayList<Vacancy> parse() throws JSONException, IOException{
+    //parse json object, which receive from constructor
+    //fill field Vacancy v and give it to arraylist, which return
+    
+    public ArrayList<Vacancy> parse() throws JSONException{
         JSONArray arr = js.getJSONArray("items");
         JSONObject js1;
         if (arr != null)
@@ -48,10 +52,9 @@ public class Parse_Json {
                 }
                 list.add(v);
             }
-        else throw new IOException();
         return list;
     }
-    
+      
     public ArrayList getVacancyList(){
         return list;
     }
@@ -61,15 +64,19 @@ public class Parse_Json {
         return iter_list();
     }
     
+
+    //iterrate list and conert it to String
+
+    public boolean isListEmpty(){
+        return list.isEmpty();
+    }
+
+    
     public String iter_list(){
         StringBuilder sb = new StringBuilder();
         for(Vacancy v : list){
             sb.append(v.toString()).append("\n");
         }
         return sb.toString();
-    }
-
-    public boolean isListEmpty() {
-        return list == null;
     }
 }

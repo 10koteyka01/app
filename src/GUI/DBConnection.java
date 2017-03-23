@@ -9,21 +9,23 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class DBConnection {
-    Connection con;
-    private Statement stat;
-    PreparedStatement pstat;
-    ResultSet rs;
+    public Connection con;
+    public Statement stat;
+    public PreparedStatement pstat;
+    public ResultSet rs;
     
     public DBConnection()
     {
         systemConnection();
     }
+   
+    //connect to MySQL DB 
     
     private void systemConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/headhunter?zeroDateTimeBehavior=convertToNull", "root", "root");
-//            stat = con.createStatement();
+            stat = con.createStatement();
             JOptionPane.showMessageDialog(null, "It's all successfully complited");
         } catch (ClassNotFoundException ex) {
             System.err.println("Не найден драйвер");

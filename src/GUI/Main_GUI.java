@@ -3,8 +3,11 @@ package GUI;
 import Const.Areas;
 import Const.Specialization;
 import Entity.Vacancy;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 public class Main_GUI extends javax.swing.JFrame {
@@ -14,6 +17,7 @@ public class Main_GUI extends javax.swing.JFrame {
     }
     TableMethod method = new TableMethod();
     ArrayList <Vacancy> vac = new ArrayList();
+    ArrayList <Vacancy> vac_from_site = new ArrayList();
     @SuppressWarnings("unchecked")
     
     //init combos
@@ -203,8 +207,12 @@ public class Main_GUI extends javax.swing.JFrame {
 //DB update
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         method.fillArray(vac);
-//        if(! vac.contains(evt))
-//        method.updateDB("");
+        try {
+          vac_from_site = method.updateArrayFromURL(Areas.getKey(jComboBox1), Specialization.getKey(jComboBox1));
+          vac = method.arrSynchronization(vac, vac_from_site);
+        } catch (IOException ex) {
+            Logger.getLogger(Main_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 //show array from db
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
